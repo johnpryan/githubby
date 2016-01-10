@@ -1,0 +1,8 @@
+<dom-module id="gh-repos">
+  <template>
+    <p>repos</p>
+    <template is="dom-repeat" items="{{repos}}" as="repo">
+      <gh-repo repo="{{repo}}"></gh-repo>
+    </template>
+  </template>
+</dom-module>

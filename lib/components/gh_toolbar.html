@@ -1,0 +1,63 @@
+<link rel="import" href="shared_styles.html">
+<dom-module id="gh-toolbar">
+  <template>
+    <style type="text/css">
+      .header {
+        padding-top: 10px;
+        padding-bottom: 10px;
+        background-color: #F5F5F5;
+      }
+      .container {
+        display: block;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+        padding-left: 50px;
+        padding-right: 50px;
+      }
+
+      li {
+        list-style: none;
+        display: inline;
+      }
+      ul {
+        padding: 0;
+        margin: 0;
+        display: inline;
+      }
+
+      .right {
+        float: right;
+      }
+
+      button {
+        font-size: 13px;
+        font-weight: bold;
+        background-color: transparent;
+        box-shadow: none;
+        border-color: transparent;
+      }
+
+      button:hover {
+        color: #4078c0;
+      }
+
+      button:active, button:focus, button:hover {
+        outline:0;
+        border-color: transparent;
+        box-shadow: none;
+      }
+
+    </style>
+    <div class="header">
+      <div class="container">
+        <ul>
+          <li><button href="titleClicked">Githubby</button></li>
+        </ul>
+        <ul class="right">
+          <li><button on-click="settingsClicked">Settings</button></li>
+        </ul>
+      </div>
+    </div>
+  </template>
+</dom-module>

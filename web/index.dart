@@ -1,11 +1,11 @@
 library githubby.index;
 
-import 'package:githubby/components/gh_repos.dart';
+import 'package:githubby/components/gh_app.dart';
 import 'package:polymer/init.dart';
 import 'package:polymer/polymer.dart';
 
 /// silence analyzer warnings:
-/// [GhRepos]
+/// [GhApp]
 main() async {
   await initPolymer();
 }
