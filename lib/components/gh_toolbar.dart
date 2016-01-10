@@ -10,6 +10,11 @@ class GhToolbar extends PolymerElement {
 
   @reflectable
   settingsClicked([_, __]) {
-    print('settingsClicked');
+    fire('gh-navigate-settings');
+  }
+
+  @reflectable
+  titleClicked([_, __]) {
+    fire('gh-navigate-home');
   }
 }
