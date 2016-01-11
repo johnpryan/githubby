@@ -8,7 +8,7 @@ import 'package:web_components/web_components.dart' show HtmlImport;
 
 import 'package:githubby/context.dart';
 import 'package:githubby/components/gh_repo.dart';
-import 'package:githubby/model.dart';
+import 'package:githubby/displayable.dart';
 
 /// [GhRepo]
 @PolymerRegister('gh-repos')
