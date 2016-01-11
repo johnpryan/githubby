@@ -6,14 +6,15 @@ import 'dart:async';
 import 'package:polymer/polymer.dart';
 import 'package:web_components/web_components.dart' show HtmlImport;
 
-import 'package:githubby/services_browser.dart';
-import 'package:githubby/storage_browser.dart';
+import 'package:githubby/context.dart';
 import 'package:githubby/components/gh_repo.dart';
 import 'package:githubby/model/repo.dart';
 
 /// [GhRepo]
 @PolymerRegister('gh-repos')
 class GhRepos extends PolymerElement {
+
+  Context _context;
 
   @Property()
   bool hasStorage = true;
@@ -23,7 +24,8 @@ class GhRepos extends PolymerElement {
 
   GhRepos.created() : super.created();
 
-  ready() {
+  void set context(Context c) {
+    _context = c;
     _loadRepos();
   }
 
@@ -33,17 +35,13 @@ class GhRepos extends PolymerElement {
   }
 
   Future _loadRepos() async {
-    var storage = new StorageBrowser();
-
-    await storage.load();
-
+    var storage = _context.storage;
     if (!storage.hasData) {
       _displayStorageError();
       return;
     }
 
-    var service = new BrowserService(storage.workspace);
-
+    var service = _context.service;
     var repos = await service.loadRepos();
 
     var renderableRepos = repos.map((repository) {

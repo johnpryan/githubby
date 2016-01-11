@@ -8,12 +8,14 @@
   <template>
     <dl class="form">
       <dt><label>Github Auth Token</label></dt>
-      <dd><input type="password" value="{{authToken::input}}"></dd>
+      <dd><input type="password" value="{{authToken::input}}" placeholder="GitHub Setings => Personal Access Tokens"></dd>
     </dl>
     <dl class="form">
       <dt><label>Repositories to Track</label></dt>
-      <dd><input type="text" value="{{reposInput::input}}"></dd>
+      <dd><input type="text" value="{{reposInput::input}}" placeholder="dartlang/sdk, flutter/flutter"></dd>
     </dl>
+    <p>clearing local storage removes all settings data</p>
+    <button type="button" class="btn btn-danger" on-click="clear">Clear Local Storage</button>
     <div class="section form-actions">
       <button type="button" class="btn btn-primary" on-click="save">Save changes</button>
       <button type="button" class="btn" on-click="cancel">Cancel</button>

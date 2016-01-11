@@ -9,7 +9,10 @@ class BrowserService extends Service {
   GitHub _github;
   GitHub get github => _github;
 
-  BrowserService(Workspace workspace) : super(workspace) {
+  BrowserService(Workspace workspace) : super(workspace);
+
+  void loadAuth() {
+    super.loadAuth();
     _github = createGitHubClient(auth: auth);
   }
 }

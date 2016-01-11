@@ -1,12 +1,16 @@
 library githubby.context;
 
-import 'package:githubby/model/storage.dart';
+import 'dart:async';
+
+import 'package:githubby/browser_storage.dart';
+import 'package:githubby/browser_services.dart';
 
 /// a singleton application context for each view
 /// to use for data
 class Context {
 
-  Storage storage;
+  BrowserStorage storage;
+  BrowserService service;
 
   static Context _sharedContext;
 
@@ -17,5 +21,18 @@ class Context {
       _sharedContext = new Context._internal();
     }
     return _sharedContext;
+  }
+
+  Future initialize() async {
+    storage = new BrowserStorage();
+    await storage.load();
+    service = new BrowserService(storage.workspace);
+    service.loadAuth();
+  }
+
+  Future clearWorkspace() async {
+    await storage.clear();
+    service.workspace = storage.workspace;
+    service.loadAuth();
   }
 }

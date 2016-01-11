@@ -2,7 +2,8 @@
 library githubby.gh_settings;
 
 import 'dart:async';
-import 'package:githubby/storage_browser.dart';
+
+import 'package:githubby/context.dart';
 import 'package:githubby/model.dart';
 
 import 'package:web_components/web_components.dart' show HtmlImport;
@@ -20,6 +21,8 @@ List<String> _textToRepos(String repos) =>
 @PolymerRegister('gh-settings')
 class GhSettings extends PolymerElement {
 
+  Context _context;
+
   @Property()
   String authToken;
 
@@ -28,13 +31,23 @@ class GhSettings extends PolymerElement {
 
   GhSettings.created() : super.created();
 
-  ready() {
-    _loadSettings();
+  void set context(Context c) {
+    _context = c;
+    render();
+  }
+
+  void render() {
+    var storage = _context.storage;
+    var workspace = storage.workspace;
+    print('reloading token ${workspace.authToken}');
+    set('authToken', workspace.authToken);
+    set('reposInput', _reposToText(workspace.repos));
   }
 
   @reflectable
   save([_, __]) {
     _saveSettings();
+    fire('gh-complete');
   }
 
   @reflectable
@@ -42,30 +55,19 @@ class GhSettings extends PolymerElement {
     fire('gh-complete');
   }
 
-  Future _loadSettings() async {
-    var storage = new StorageBrowser();
-
-    if (!storage.hasData) {
-      return;
-    }
-
-    await storage.load();
-    set('authToken', storage.workspace.authToken);
-    print('loading repos ${storage.workspace.repos}');
-    set('reposInput', _reposToText(storage.workspace.repos));
+  @reflectable
+  clear([_, __]) async {
+    await _context.clearWorkspace();
+    render();
   }
 
   Future _saveSettings() async {
-    var storage = new StorageBrowser();
-
-    await storage.load();
-
-    if(!storage.hasData) {
-      storage.workspace = new Workspace(authToken, []);
-    } else {
+    var storage = _context.storage;
       storage.workspace.authToken = authToken;
-      storage.workspace.repos = _textToRepos(reposInput);
-    }
+      storage.workspace.repos = _textToRepos(reposInput) ?? [];
+
+    // use the (possibly changed) auth token
+    _context.service.loadAuth();
 
     await storage.save();
     fire('gh-complete');

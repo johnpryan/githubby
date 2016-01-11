@@ -2,8 +2,6 @@ library githubby.workspace;
 
 import 'package:source_gen/generators/json_serializable.dart';
 
-import 'package:githubby/model/repo.dart';
-
 part 'workspace.g.dart';
 
 /// Defines all of the content for the app;

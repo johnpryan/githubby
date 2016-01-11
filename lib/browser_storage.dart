@@ -8,17 +8,23 @@ import 'package:githubby/storage.dart';
 
 html.Storage _localStorage = html.window.localStorage;
 
-class StorageBrowser implements Storage {
+class BrowserStorage implements Storage {
   String _key;
 
   Workspace workspace;
   bool get hasData => _localStorage.containsKey(_key);
 
-  StorageBrowser({String uniqueKey: 'githubby'}) {
+  BrowserStorage({String uniqueKey: 'githubby'}) {
     _key = uniqueKey;
   }
 
   Future load() async {
+
+    if (!hasData) {
+      workspace = new Workspace('', []);
+      return;
+    }
+
     var jsonStr = _localStorage[_key];
     var json = JSON.decode(jsonStr);
     workspace = new Workspace.fromJson(json);
@@ -30,6 +36,7 @@ class StorageBrowser implements Storage {
   }
 
   Future clear() async {
+    workspace = new Workspace('', []);
     _localStorage.remove(_key);
   }
 }
