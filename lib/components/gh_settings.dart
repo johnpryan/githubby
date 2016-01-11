@@ -4,7 +4,6 @@ library githubby.gh_settings;
 import 'dart:async';
 
 import 'package:githubby/context.dart';
-import 'package:githubby/model.dart';
 
 import 'package:web_components/web_components.dart' show HtmlImport;
 import 'package:polymer/polymer.dart';
@@ -39,7 +38,6 @@ class GhSettings extends PolymerElement {
   void render() {
     var storage = _context.storage;
     var workspace = storage.workspace;
-    print('reloading token ${workspace.authToken}');
     set('authToken', workspace.authToken);
     set('reposInput', _reposToText(workspace.repos));
   }

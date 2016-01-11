@@ -37,4 +37,9 @@ abstract class Service {
     var repoList = await repoStream.toList();
     return repoList;
   }
+
+  Future<PullRequest> loadPullRequests(RepositorySlug slug) async {
+    var stream = github.pullRequests.list(slug);
+    return await stream.toList();
+  }
 }

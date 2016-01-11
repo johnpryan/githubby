@@ -8,7 +8,7 @@ import 'package:web_components/web_components.dart' show HtmlImport;
 
 import 'package:githubby/context.dart';
 import 'package:githubby/components/gh_repo.dart';
-import 'package:githubby/model/repo.dart';
+import 'package:githubby/model.dart';
 
 /// [GhRepo]
 @PolymerRegister('gh-repos')
@@ -20,7 +20,7 @@ class GhRepos extends PolymerElement {
   bool hasStorage = true;
 
   @Property()
-  List<Repo> repos;
+  List<DisplayableRepo> repos;
 
   GhRepos.created() : super.created();
 
@@ -44,11 +44,18 @@ class GhRepos extends PolymerElement {
     var service = _context.service;
     var repos = await service.loadRepos();
 
-    var renderableRepos = repos.map((repository) {
-      return new Repo(repository);
-    }).toList();
+    List<DisplayableRepo> displayableRepos = [];
 
-    set('repos', renderableRepos);
+    for (var repo in repos) {
+      var displayable = new DisplayableRepo(repo);
+      var pullRequests = await service.loadPullRequests(repo.slug());
+      for (var pr in pullRequests) {
+        displayable.pullRequests.add(new DisplayablePullRequest(pr));
+      }
+      displayableRepos.add(displayable);
+    }
+
+    set('repos', displayableRepos);
   }
 
   _displayStorageError() {
