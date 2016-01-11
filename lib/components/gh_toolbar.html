@@ -3,34 +3,35 @@
   <template>
     <style type="text/css">
       .header {
-        padding-top: 10px;
-        padding-bottom: 10px;
+        padding-top: 4px;
+        padding-bottom: 4px;
         background-color: #F5F5F5;
       }
-      .container {
-        display: block;
-        max-width: 600px;
-        margin-left: auto;
-        margin-right: auto;
-        padding-left: 50px;
-        padding-right: 50px;
+
+      .menu-items {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
       }
 
-      li {
-        list-style: none;
-        display: inline;
-      }
-      ul {
-        padding: 0;
-        margin: 0;
-        display: inline;
+      button:hover, .right > ::content button:hover {
+        color: #4078c0;
       }
 
-      .right {
-        float: right;
+      button:active,
+      button:focus,
+      button:hover,
+      .right > ::content button:active,
+      .right > ::content button:focus,
+      .right > ::content button:hover
+      {
+        outline:0;
+        border-color: transparent;
+        box-shadow: none;
       }
 
-      button {
+      button, .right > ::content button {
         font-size: 13px;
         font-weight: bold;
         background-color: transparent;
@@ -38,26 +39,30 @@
         border-color: transparent;
       }
 
-      button:hover {
-        color: #4078c0;
+      .octicon {
+        font-size: 24px;
+        padding-right: 8px;
       }
 
-      button:active, button:focus, button:hover {
-        outline:0;
-        border-color: transparent;
-        box-shadow: none;
+      .gh-home {
+        display:flex;
+        align-items: center;
       }
-
     </style>
     <div class="header">
-      <div class="container">
-        <ul>
-          <li><button on-click="titleClicked">Githubby</button></li>
-        </ul>
-        <ul class="right">
-          <li><button on-click="settingsClicked">Settings</button></li>
-        </ul>
-      </div>
+      <gh-container>
+        <div class="menu-items">
+          <div class="left">
+            <button class= "gh-home" on-click="titleClicked">
+              <span class="octicon octicon-mark-github"></span>
+              Githubby
+            </button>
+          </div>
+          <div class="right">
+            <content></content>
+          </div>
+        </div>
+      </gh-container>
     </div>
   </template>
 </dom-module>

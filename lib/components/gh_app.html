@@ -1,6 +1,8 @@
 <dom-module id="gh-app">
   <template>
-    <gh-toolbar on-gh-navigate-home="navigateHome" on-gh-navigate-settings="navigateSettings"></gh-toolbar>
+    <gh-toolbar on-gh-navigate-home="navigateHome">
+      <button  on-click="navigateSettings">Settings</button>
+    </gh-toolbar>
     <gh-container>
       <gh-repos hidden="{{!displayRepos}}"></gh-repos>
       <gh-settings hidden="{{displayRepos}}"></gh-settings>
