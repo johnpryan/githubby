@@ -240,6 +240,13 @@
             </list>
           </value>
         </entry>
+        <entry key="source_gen">
+          <value>
+            <list>
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/source_gen-0.4.8/lib" />
+            </list>
+          </value>
+        </entry>
         <entry key="source_map_stack_trace">
           <value>
             <list>
@@ -368,6 +375,7 @@
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/shelf-0.6.4+3/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/shelf_static-0.2.3+2/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/shelf_web_socket-0.0.1+5/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/source_gen-0.4.8/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/source_map_stack_trace-1.0.4/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/source_maps-0.10.1/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/source_span-1.2.1/lib" />

@@ -137,6 +137,10 @@ packages:
     description: shelf_web_socket
     source: hosted
     version: "0.0.1+5"
+  source_gen:
+    description: source_gen
+    source: hosted
+    version: "0.4.8"
   source_map_stack_trace:
     description: source_map_stack_trace
     source: hosted

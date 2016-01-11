@@ -12,7 +12,7 @@ main() async {
   if (storage.workspace == null) {
     print('no config file found.  Enter your github auth token:');
     var authToken = stdin.readLineSync();
-    storage.workspace = new Workspace(authToken);
+    storage.workspace = new Workspace(authToken, []);
     await storage.save();
   }
 

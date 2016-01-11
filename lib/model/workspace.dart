@@ -1,21 +1,22 @@
 library githubby.workspace;
 
+import 'package:source_gen/generators/json_serializable.dart';
+
+import 'package:githubby/model/repo.dart';
+
+part 'workspace.g.dart';
+
 /// Defines all of the content for the app;
 /// repositories, auth, etc
 ///
 /// this should/could use source_gen eventually
-class Workspace {
+@JsonSerializable()
+class Workspace extends Object with _$WorkspaceSerializerMixin {
+
   String authToken;
+  List<String> repos;
 
-  Workspace(this.authToken);
+  Workspace(this.authToken, this.repos);
 
-  factory Workspace.fromJson(Map<String, Object> json) {
-    return new Workspace(json['authToken']);
-  }
-
-  Map toJson() {
-    return {
-      'authToken': authToken
-    };
-  }
+  factory Workspace.fromJson(json) => _$WorkspaceFromJson(json);
 }

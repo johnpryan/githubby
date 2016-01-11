@@ -5,7 +5,7 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:githubby/model/workspace.dart';
-import 'package:githubby/model/storage.dart';
+import 'package:githubby/storage.dart';
 
 const String filename = '.githubby';
 

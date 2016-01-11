@@ -4,24 +4,29 @@ import 'dart:async';
 import 'dart:html' as html;
 import 'dart:convert';
 import 'package:githubby/model/workspace.dart';
-import 'package:githubby/model/storage.dart';
+import 'package:githubby/storage.dart';
 
 html.Storage _localStorage = html.window.localStorage;
-const String _key = 'githubby';
 
 class StorageBrowser implements Storage {
+  String _key;
+
   Workspace workspace;
-  bool get _hasExisting => _localStorage.containsKey(_key);
+  bool get hasData => _localStorage.containsKey(_key);
+
+  StorageBrowser({String uniqueKey: 'githubby'}) {
+    _key = uniqueKey;
+  }
 
   Future load() async {
-    if (!_hasExisting) return;
     var jsonStr = _localStorage[_key];
     var json = JSON.decode(jsonStr);
     workspace = new Workspace.fromJson(json);
   }
 
   Future save() async {
-    _localStorage[_key] = JSON.encode(workspace);
+    var json = JSON.encode(workspace);
+    _localStorage[_key] = json;
   }
 
   Future clear() async {

@@ -1,8 +1,13 @@
+<link rel="import" href="shared_styles.html">
 <dom-module id="gh-repos">
   <template>
-    <p>repos</p>
-    <template is="dom-repeat" items="{{repos}}" as="repo">
-      <gh-repo repo="{{repo}}"></gh-repo>
-    </template>
+    <div class="flash" hidden="{{hasStorage}}">
+      You haven't configured an auth token or repos yet.  Go to the Settings page first.
+    </div>
+    <div hidden="{{!hasStorage}}">
+      <template is="dom-repeat" items="{{repos}}" as="repo">
+        <gh-repo repo="{{repo}}"></gh-repo>
+      </template>
+    </div>
   </template>
 </dom-module>
