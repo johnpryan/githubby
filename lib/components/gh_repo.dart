@@ -10,5 +10,8 @@ class GhRepo extends PolymerElement {
   @property
   Repo repo;
 
+  @property
+  List<String> get pullRequests => ['hello', 'world'];
+
   GhRepo.created() : super.created();
 }

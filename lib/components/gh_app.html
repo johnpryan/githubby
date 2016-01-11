@@ -4,8 +4,8 @@
       <button  on-click="navigateSettings">Settings</button>
     </gh-toolbar>
     <gh-container>
-      <gh-repos hidden="{{!displayRepos}}"></gh-repos>
-      <gh-settings hidden="{{displayRepos}}"></gh-settings>
+      <gh-repos id="gh-repos" hidden="{{!displayRepos}}"></gh-repos>
+      <gh-settings hidden="{{displayRepos}}" on-gh-complete="navigateHome"></gh-settings>
     </gh-container>
   </template>
 </dom-module>

@@ -10,5 +10,8 @@ class Repo extends Repository with JsProxy {
   @reflectable
   String get fullName => _internal.fullName;
 
+  @reflectable
+  String get htmlUrl => _internal.htmlUrl;
+
   Repo(this._internal);
 }

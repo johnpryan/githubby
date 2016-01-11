@@ -23,7 +23,9 @@ abstract class Service {
   }
 
   Future<List<Repository>> loadRepos() async {
-    var slugs = [new RepositorySlug('dart-lang', 'sdk')];
+    var slugs = workspace.repos.map((r) {
+      return new RepositorySlug.full(r);
+    }).toList();
     var repos = github.repositories.getRepositories(slugs);
     return await repos.toList();
   }

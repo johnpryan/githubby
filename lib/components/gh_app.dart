@@ -1,6 +1,8 @@
 @HtmlImport('gh_app.html')
 library githubby.gh_app;
 
+import 'dart:async';
+
 import 'package:polymer/polymer.dart';
 import 'package:web_components/web_components.dart' show HtmlImport;
 
@@ -17,14 +19,22 @@ import 'package:githubby/components/gh_settings.dart';
 @PolymerRegister('gh-app')
 class GhApp extends PolymerElement {
 
+  GhRepos _reposElem;
+
   @Property()
   bool displayRepos = true;
 
   GhApp.created() : super.created();
 
+  attached() async {
+    print('attached');
+    _reposElem = $$('#gh-repos');
+  }
+
   @reflectable
   navigateHome([_, __]) {
     set('displayRepos', true);
+    _reposElem.reload();
   }
 
   @reflectable

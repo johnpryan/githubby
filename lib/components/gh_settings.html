@@ -10,9 +10,13 @@
       <dt><label>Github Auth Token</label></dt>
       <dd><input type="password" value="{{authToken::input}}"></dd>
     </dl>
+    <dl class="form">
+      <dt><label>Repositories to Track</label></dt>
+      <dd><input type="text" value="{{reposInput::input}}"></dd>
+    </dl>
     <div class="section form-actions">
       <button type="button" class="btn btn-primary" on-click="save">Save changes</button>
-      <button type="button" class="btn">Cancel</button>
+      <button type="button" class="btn" on-click="cancel">Cancel</button>
     </div>
   </template>
 </dom-module>

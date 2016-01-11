@@ -1,6 +1,49 @@
 <link rel="import" href="shared_styles.html">
 <dom-module id="gh-repo">
     <template>
-        <p>Repo: {{repo.fullName}}</p>
+        <style>
+            .repo-header {
+                background-color: #f8f8f8;
+                padding: 10px;
+                border-style: solid;
+                border-width: 1px;
+                border-color: #D8D8D8;
+
+                border-top-left-radius: 3px;
+                border-top-right-radius: 3px;
+                border-bottom-right-radius: 0px;
+                border-bottom-left-radius: 0px;
+
+                margin-top: 20px;
+            }
+
+            a {
+                font-size: 13px;
+                font-weight: bold;
+            }
+
+            .pull-request-container {
+                border-top-width: 0px;
+                border-left-width: 1px;
+                border-right-width: 1px;
+                border-bottom-width: 1px;
+                border-style: solid;
+                border-color: #D8D8D8;
+
+                list-style: none;
+
+                padding: 10px;
+            }
+        </style>
+        <div class="repo-header">
+            <a href="{{repo.htmlUrl}}">{{repo.fullName}}</a>
+        </div>
+        <ul>
+            <template is="dom-repeat" items="{{pullRequests}}" as="pullRequest">
+                <li class="pull-request-container">
+                    {{pullRequest}}
+                </li>
+            </template>
+        </ul>
     </template>
 </dom-module>

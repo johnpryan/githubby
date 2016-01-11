@@ -27,6 +27,11 @@ class GhRepos extends PolymerElement {
     _loadRepos();
   }
 
+  reload() {
+    set('repos', []);
+    _loadRepos();
+  }
+
   Future _loadRepos() async {
     var storage = new StorageBrowser();
 
