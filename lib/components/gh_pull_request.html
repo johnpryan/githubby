@@ -1,0 +1,37 @@
+<dom-module id="gh-pull-request">
+    <template>
+        <style type="text/css">
+            .title {
+                font-weight: bold;
+                color: #333;
+                text-decoration: none;
+            }
+
+            .title:hover {
+                color: #4078c0;
+            }
+
+            .meta {
+                color: #767676;
+            }
+
+            .user-meta {
+                color: #767676;
+                text-decoration: None;
+            }
+
+            .user-meta:hover {
+                color: #4078c0;
+            }
+
+        </style>
+        <a class="title" href="{{pullRequest.htmlUrl}}">{{pullRequest.title}}</a>
+        <div class="meta">
+            <span>needs review by
+                <template is="dom-repeat" items="{{pullRequest.usersToReview}}" as="user">
+                    <a href="#" class="user-meta">{{user}}</a>
+                </template>
+            </span>
+        </div>
+    </template>
+</dom-module>

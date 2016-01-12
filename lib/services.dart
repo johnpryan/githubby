@@ -42,4 +42,8 @@ abstract class Service {
     var stream = github.pullRequests.list(slug);
     return await stream.toList();
   }
+
+  Future<List<String>> getUsersToReview(PullRequest pr) async {
+    return ['johnryan-wf', 'travissanderson-wf'];
+  }
 }

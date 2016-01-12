@@ -7,8 +7,9 @@ import 'package:polymer/polymer.dart';
 import 'package:web_components/web_components.dart' show HtmlImport;
 
 import 'package:githubby/context.dart';
-import 'package:githubby/components/gh_repo.dart';
 import 'package:githubby/displayable.dart';
+
+import 'package:githubby/components/gh_repo.dart';
 
 /// [GhRepo]
 @PolymerRegister('gh-repos')
@@ -51,8 +52,9 @@ class GhRepos extends PolymerElement {
       var pullRequests = await service.loadPullRequests(repo.slug());
       for (var pr in pullRequests) {
         var displayablePr = new DisplayablePullRequest(pr);
+        var usersToReview = await service.getUsersToReview(pr);
+        displayablePr.usersToReview = usersToReview;
         displayable.pullRequests.add(displayablePr);
-//        print('displayablePr = ${displayablePr}');
       }
       displayableRepos.add(displayable);
     }

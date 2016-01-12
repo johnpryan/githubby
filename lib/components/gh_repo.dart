@@ -1,10 +1,14 @@
 @HtmlImport('gh_repo.html')
 library githubby.gh_repo;
 
-import 'package:githubby/displayable.dart';
 import 'package:web_components/web_components.dart' show HtmlImport;
 import 'package:polymer/polymer.dart';
 
+import 'package:githubby/displayable.dart';
+
+import 'package:githubby/components/gh_pull_request.dart';
+
+/// [GhPullRequest]
 @PolymerRegister('gh-repo')
 class GhRepo extends PolymerElement {
 

@@ -13,5 +13,11 @@ class DisplayablePullRequest extends PullRequest with JsProxy {
   @reflectable
   String get title => _internal.title;
 
+  @reflectable
+  String get htmlUrl => _internal.htmlUrl;
+
+  @reflectable
+  List<String> usersToReview;
+
   DisplayablePullRequest(this._internal);
 }
