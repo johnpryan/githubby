@@ -6,7 +6,7 @@
     </div>
     <div hidden="{{!hasStorage}}">
       <template is="dom-repeat" items="{{repos}}" as="repo">
-        <gh-repo repo="{{repo}}"></gh-repo>
+        <gh-repo repo="{{repo}}" pull-requests="{{repo.pullRequests}}"></gh-repo>
       </template>
     </div>
   </template>

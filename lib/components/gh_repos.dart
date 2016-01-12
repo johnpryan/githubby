@@ -50,7 +50,9 @@ class GhRepos extends PolymerElement {
       var displayable = new DisplayableRepo(repo);
       var pullRequests = await service.loadPullRequests(repo.slug());
       for (var pr in pullRequests) {
-        displayable.pullRequests.add(new DisplayablePullRequest(pr));
+        var displayablePr = new DisplayablePullRequest(pr);
+        displayable.pullRequests.add(displayablePr);
+//        print('displayablePr = ${displayablePr}');
       }
       displayableRepos.add(displayable);
     }
