@@ -20,8 +20,8 @@ main() async {
   var github = createGitHubClient(auth: auth);
 //  var services = new ServerService(storage.workspace);
 
-  var slug = new RepositorySlug('Workiva', 'linking-demo');
-  var prNumber = 72;
+  var slug = new RepositorySlug('Workiva', 'datatables');
+  var prNumber = 58;
 
   var pr = await github.pullRequests.get(slug, prNumber);
   var lines = pr.body.split('\n');
@@ -35,17 +35,29 @@ main() async {
       for (var person in taggedPeople) {
         var username = person.group(0).replaceFirst('@', '');
         taggedUsernames.add(username);
-        print('${username} was tagged');
       }
     } else if(isFyi) {
       var taggedPeople = taggedPerson.allMatches(line, 1);
       for (var person in taggedPeople) {
         var username = person.group(0).replaceFirst('@', '');
         fyidUsernames.add(username);
-        print('${username} was FYId');
       }
     }
   }
+
+  print('tagged users');
+  print('------------');
+  for (var tagged in taggedUsernames) {
+    print(tagged);
+  }
+  print('');
+
+  print("FYI'd users");
+  print('------------');
+  for (var fyid in fyidUsernames) {
+    print(fyid);
+  }
+  print('');
 
   var discussionStream = github.issues.listCommentsByIssue(slug, prNumber);
   var comments = await discussionStream.toList();
@@ -61,6 +73,14 @@ main() async {
     return c1.createdAt.compareTo(c2.createdAt);
   });
 
+  // make the most recent +1 first
+  plusOnes = plusOnes.reversed.toList();
+
+  if (plusOnes.isEmpty) {
+    print('There are no +1s on this PR');
+    return;
+  }
+
   var latestPlusOne = plusOnes.first;
 
   var commitStream = github.pullRequests.listCommits(slug, prNumber);
@@ -71,6 +91,9 @@ main() async {
     var date2 = c2.commit.author.date;
     return date1.compareTo(date2);
   });
+
+  // make the most recent commit first
+  commits = commits.reversed.toList();
 
   List<RepositoryCommit> unreviewed = [];
 
@@ -99,7 +122,7 @@ main() async {
 
   // print remaining reviewers
   if(!unreviewed.isEmpty) {
-    print('${unreviewed.length} unreviewed commits');
+    print('There are ${unreviewed.length} unreviewed commits on this PR');
   } else {
     if (usersToReview.isEmpty) {
       print('all tagged people have reviewed this PR');
