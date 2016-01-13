@@ -38,7 +38,7 @@ class DisplayablePullRequest extends PullRequest with JsProxy {
     return hasTagged && !hasUsersToReview;
   }
 
-  @reflectable get displayReviewers => !canMerge;
+  @reflectable get displayReviewers => !canMerge && hasTagged;
 
   @reflectable
   List<DisplayableUser> fyidUsers;

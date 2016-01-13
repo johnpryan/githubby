@@ -111,7 +111,6 @@ class PlusOnesRemaining {
     // make the most recent commit first
     commits = commits.reversed.toList();
 
-//    print('plusOnes.length = ${plusOnes.length}');
     if (plusOnes.length == 0) {
       _unreviewed.addAll(commits);
     } else {
@@ -141,12 +140,11 @@ class PlusOnesRemaining {
     // the users that have been tagged, but don't have a +1
     // since the latest commit
     for (var tagged in _taggedUsernames) {
-      for (var comment in plusOnesSinceLatestCommit) {
-        if (tagged == comment.user.login) {
-          var idx = remainingUsers.indexOf(comment.user);
-          if (idx >= 0) {
-            remainingUsers.removeAt(idx);
-          }
+      for (var plusone in plusOnesSinceLatestCommit) {
+        if (tagged == plusone.user.login) {
+          for (var user in remainingUsers) print(user.login);
+          remainingUsers.removeWhere((user) => user.login == plusone.user.login);
+          for (var user in remainingUsers) print(user.login);
         }
       }
     }
