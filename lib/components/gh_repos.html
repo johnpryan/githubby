@@ -27,7 +27,7 @@
         </div>
       </div>
     </template>
-    <template is="dom-if" if="{{!isLoading}}">
+    <template is="dom-if" if="{{displayRepos}}">
       <dl class="form">
         <dt><label>Filter by Reviewer</label></dt>
         <dd><input type="text" value="{{filter::input}}" placeholder="user1, user2"></dd>

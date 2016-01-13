@@ -21,7 +21,7 @@ class GhRepos extends PolymerElement {
   Context _context;
 
   @Property()
-  bool hasStorage = true;
+  bool hasStorage = false;
 
   @Property()
   List<DisplayableRepo> repos;
@@ -31,6 +31,9 @@ class GhRepos extends PolymerElement {
 
   @Property()
   bool isLoading = false;
+
+  @Property()
+  bool displayRepos = false;
 
   @Property()
   bool showBadges;
@@ -84,6 +87,7 @@ class GhRepos extends PolymerElement {
 
   reload() {
     displayableRepos.clear();
+    set('displayRepos', false);
     set('showBadges', _context.storage.workspace.showBadges);
     _loadRepos();
   }
@@ -92,11 +96,17 @@ class GhRepos extends PolymerElement {
     var storage = _context.storage;
     if (!storage.hasData || storage.workspace.authToken == '') {
       set('hasStorage', false);
+      set('repos', reposToDisplay);
+      return;
     } else {
       set('hasStorage', true);
     }
 
     set('isLoading', true);
+
+    print('is loading = $isLoading');
+    print('has storage = $hasStorage');
+    print('display repos = $displayRepos');
 
     var service = _context.service;
     var repos = await service.loadRepos();
@@ -125,6 +135,7 @@ class GhRepos extends PolymerElement {
 
     set('isLoading', false);
     set('repos', reposToDisplay);
+    set('displayRepos', true);
   }
 
   @reflectable

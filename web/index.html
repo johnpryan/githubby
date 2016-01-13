@@ -6,27 +6,10 @@
   <title>Githubby</title>
   <script src="./packages/web_components/webcomponents-lite.min.js"></script>
   <script src="./packages/web_components/dart_support.js"></script>
-  <link rel="stylesheet" href="./packages/githubby/components/third_party/primer.css" />
-  <style>
-    .footer {
-      display:flex;
-      justify-content: center;
-      align-items: flex-end;
-      font-size: 10px;
-    }
-
-    .footer > span {
-      margin-left: 4px;
-    }
-  </style>
 </head>
 <body>
 <gh-app></gh-app>
-<footer>
-  <gh-container>
-    <p class="lead footer ">made with ♥ by <span><a href="http://twitter.com/jryanio">@jryanio</a></span></p>
-  </gh-container>
-</footer>
+<gh-footer></gh-footer>
 <script type="application/dart" src="./index.dart"></script>
 <script src="./packages/browser/dart.js"></script>
 </body>
