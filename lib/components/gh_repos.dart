@@ -2,6 +2,7 @@
 library githubby.gh_repos;
 
 import 'dart:async';
+import 'dart:html';
 
 import 'package:polymer/polymer.dart';
 import 'package:web_components/web_components.dart' show HtmlImport;
@@ -10,6 +11,10 @@ import 'package:githubby/context.dart';
 import 'package:githubby/displayable.dart';
 
 import 'package:githubby/components/gh_repo.dart';
+
+DisplayableUser _displayableUser(u) => new DisplayableUser(u);
+List<DisplayableUser> _displayableUsers(List us)
+  => us.map(_displayableUser).toList();
 
 /// [GhRepo]
 @PolymerRegister('gh-repos')
@@ -51,9 +56,20 @@ class GhRepos extends PolymerElement {
       var displayable = new DisplayableRepo(repo);
       var pullRequests = await service.loadPullRequests(repo.slug());
       for (var pr in pullRequests) {
+
         var displayablePr = new DisplayablePullRequest(pr);
-        var usersToReview = await service.getUsersToReview(pr);
-        displayablePr.usersToReview = usersToReview;
+        var plusOnesRemaining = await service.getPlusOnesRemaining(pr);
+        displayablePr.unreviewedCommitCount = plusOnesRemaining.unreviewedCommits;
+        var usersToReview = plusOnesRemaining.remainingUsers;
+        var taggedUsers = plusOnesRemaining.taggedUsers;
+        var fyidUsers = plusOnesRemaining.fyidUsers;
+        var displayableUsers = _displayableUsers(usersToReview);
+        var displayableTagged = _displayableUsers(taggedUsers);
+        var displayableFyid = _displayableUsers(fyidUsers);
+
+        displayablePr.usersToReview = displayableUsers;
+        displayablePr.taggedUsers = displayableTagged;
+        displayablePr.fyidUsers = displayableFyid;
         displayable.pullRequests.add(displayablePr);
       }
       displayableRepos.add(displayable);

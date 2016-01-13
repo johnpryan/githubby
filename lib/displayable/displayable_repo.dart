@@ -1,6 +1,6 @@
 library githubby.model.displayable_repo;
 
-import 'displayable_pull_request.dart';
+import 'package:githubby/displayable.dart';
 
 import 'package:github/common.dart';
 import 'package:polymer/polymer.dart';

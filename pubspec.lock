@@ -50,8 +50,11 @@ packages:
     source: hosted
     version: "0.2.2"
   github:
-    description: github
-    source: hosted
+    description:
+      ref: fix-pr-base
+      resolved-ref: "27eefb1037b4b868969066a081e84f5f8a8c4c1d"
+      url: "git@github.com:johnpryan/github.dart.git"
+    source: git
     version: "2.3.1"
   glob:
     description: glob

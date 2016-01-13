@@ -3,7 +3,6 @@ library users_to_review;
 import 'dart:io';
 import 'package:githubby/storage_server.dart';
 import 'package:githubby/model.dart';
-//import 'package:githubby/server_services.dart';
 import 'package:github/server.dart';
 
 main() async {
@@ -18,10 +17,9 @@ main() async {
   }
   var auth = new Authentication.withToken(storage.workspace.authToken);
   var github = createGitHubClient(auth: auth);
-//  var services = new ServerService(storage.workspace);
 
   var slug = new RepositorySlug('Workiva', 'datatables');
-  var prNumber = 58;
+  var prNumber = 60;
 
   var pr = await github.pullRequests.get(slug, prNumber);
   var lines = pr.body.split('\n');
@@ -31,13 +29,13 @@ main() async {
     var taggedPerson = new RegExp(r"@[A-z-]+");
     var isFyi = line.startsWith('FYI');
     if (line.contains(taggedPerson) &&!isFyi) {
-      var taggedPeople = taggedPerson.allMatches(line, 1);
+      var taggedPeople = taggedPerson.allMatches(line, 0);
       for (var person in taggedPeople) {
         var username = person.group(0).replaceFirst('@', '');
         taggedUsernames.add(username);
       }
     } else if(isFyi) {
-      var taggedPeople = taggedPerson.allMatches(line, 1);
+      var taggedPeople = taggedPerson.allMatches(line, 0);
       for (var person in taggedPeople) {
         var username = person.group(0).replaceFirst('@', '');
         fyidUsernames.add(username);
@@ -111,13 +109,13 @@ main() async {
 
   // the users that have been tagged, but don't have a +1
   // since the latest commit
-  var usersToReview = taggedUsernames.where((username) {
+  var usersToReview = taggedUsernames.where((tagged) {
     for(var comment in plusOnesSinceLatestCommit) {
-      if (username = comment.user.login) {
-        return true;
+      if (tagged == comment.user.login) {
+        return false;
       }
     }
-    return false;
+    return true;
   });
 
   // print remaining reviewers

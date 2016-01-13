@@ -27,11 +27,21 @@
         </style>
         <a class="title" href="{{pullRequest.htmlUrl}}">{{pullRequest.title}}</a>
         <div class="meta">
-            <span>needs review by
-                <template is="dom-repeat" items="{{pullRequest.usersToReview}}" as="user">
-                    <a href="#" class="user-meta">{{user}}</a>
-                </template>
-            </span>
+            <template is="dom-if" if="{{pullRequest.displayReviewers}}">
+                <span>{{pullRequest.unreviewedCommitCount}} commits need review by
+                    <template is="dom-repeat" items="{{pullRequest.usersToReview}}" as="user">
+                        <a href="{{user.htmlUrl}}" class="user-meta">{{user.login}}</a>
+                    </template>
+                </span>
+            </template>
+
+            <template is="dom-if" if="{{pullRequest.canMerge}}">
+                <span>Ready to merge</span>
+            </template>
+
+            <template is="dom-if" if="{{!pullRequest.hasTagged}}">
+                <span>No one is tagged</span>
+            </template>
         </div>
     </template>
 </dom-module>
