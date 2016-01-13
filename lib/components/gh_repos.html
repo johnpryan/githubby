@@ -1,9 +1,32 @@
 <link rel="import" href="shared_styles.html">
 <dom-module id="gh-repos">
   <template>
+    <style type="text/css">
+      .center {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+      .loading {
+        width: 80px;
+        height: 80px;
+      }
+    </style>
     <div class="flash" hidden="{{hasStorage}}">
-      You haven't configured an auth token or repos yet.  Go to the Settings page first.
+      <div class="center">
+        You haven't configured an auth token or repos yet.
+        Go to Settings configure your auth token.
+      </div>
     </div>
+    <template is="dom-if" if="{{isLoading}}">
+      <div class="center">
+        <div>
+          <img class="loading" src="/packages/githubby/components/third_party/gh_loading.svg" />
+        </div>
+        <div>loading...</div>
+      </div>
+    </template>
     <div hidden="{{!hasStorage}}">
       <template is="dom-repeat" items="{{repos}}" as="repo">
         <gh-repo repo="{{repo}}" pull-requests="{{repo.pullRequests}}"></gh-repo>

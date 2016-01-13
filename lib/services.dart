@@ -36,10 +36,7 @@ abstract class Service {
   }
 
   Future<List<Repository>> loadRepos() async {
-    var slugs = workspace.repos
-        .where(_validRepo)
-        .map(_stringToSlug)
-        .toList();
+    var slugs = workspace.repos.where(_validRepo).map(_stringToSlug).toList();
 
     var repoStream = github.repositories.getRepositories(slugs);
     var repoList = await repoStream.toList();
@@ -69,8 +66,13 @@ class PlusOnesRemaining {
   List<String> _taggedUsernames;
   List<String> _fyidUsernames;
 
-  List<RepositoryCommit> _unreviewed = [];
-  int get unreviewedCommits => _unreviewed.length;
+  int get unreviewedCommits {
+    var values = _unreviewedByUser.values.toList()..sort();
+    if (values.isEmpty) return 0;
+    return values.last;
+  }
+
+  Map<String, int> _unreviewedByUser = {};
   List<User> remainingUsers = [];
   List<User> taggedUsers = [];
   List<User> fyidUsers = [];
@@ -84,9 +86,8 @@ class PlusOnesRemaining {
     var discussionStream = github.issues.listCommentsByIssue(slug, prNumber);
     var comments = await discussionStream.toList();
 
-
     List<IssueComment> plusOnes = [];
-    for(var comment in comments) {
+    for (var comment in comments) {
       if (comment.body.startsWith('+1')) {
         plusOnes.add(comment);
       }
@@ -111,17 +112,6 @@ class PlusOnesRemaining {
     // make the most recent commit first
     commits = commits.reversed.toList();
 
-    if (plusOnes.length == 0) {
-      _unreviewed.addAll(commits);
-    } else {
-      // add only commits AFTER latest +1
-      for (var commit in commits) {
-        if (commit.commit.author.date.isAfter(plusOnes.first.createdAt)) {
-          _unreviewed.add(commit);
-        }
-      }
-    }
-
     var latestCommit = commits.first;
 
     var plusOnesSinceLatestCommit = plusOnes.where((comment) {
@@ -135,6 +125,25 @@ class PlusOnesRemaining {
       fyidUsers.add(await _getUser(github, username));
     }
 
+    for (var user in taggedUsers) {
+      var latestPlusOne = plusOnes.firstWhere((comment) {
+        return comment.user.login == user.login;
+      }, orElse: () => null);
+
+      if (latestPlusOne == null) {
+        _unreviewedByUser[user.login] = comments.length;
+      } else {
+        for (var commit in commits) {
+          if (commit.commit.author.date.isAfter(latestPlusOne.createdAt)) {
+            if (!_unreviewedByUser.containsKey(user.login)) {
+              _unreviewedByUser[user.login] = 0;
+            }
+            _unreviewedByUser[user.login]++;
+          }
+        }
+      }
+    }
+
     remainingUsers = new List.from(taggedUsers);
 
     // the users that have been tagged, but don't have a +1
@@ -142,9 +151,7 @@ class PlusOnesRemaining {
     for (var tagged in _taggedUsernames) {
       for (var plusone in plusOnesSinceLatestCommit) {
         if (tagged == plusone.user.login) {
-          for (var user in remainingUsers) print(user.login);
           remainingUsers.removeWhere((user) => user.login == plusone.user.login);
-          for (var user in remainingUsers) print(user.login);
         }
       }
     }
@@ -164,13 +171,13 @@ class TaggedUsers {
       var taggedPerson = new RegExp(r"@[A-z-]+");
       var isFyi = line.startsWith('FYI');
 
-      if (line.contains(taggedPerson) &&!isFyi) {
+      if (line.contains(taggedPerson) && !isFyi) {
         var taggedPeople = taggedPerson.allMatches(line, 0);
         for (var person in taggedPeople) {
           var username = person.group(0).replaceFirst('@', '');
           tagged.add(username);
         }
-      } else if(isFyi) {
+      } else if (isFyi) {
         var taggedPeople = taggedPerson.allMatches(line, 0);
         for (var person in taggedPeople) {
           var username = person.group(0).replaceFirst('@', '');

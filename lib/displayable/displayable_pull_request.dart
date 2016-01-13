@@ -34,7 +34,6 @@ class DisplayablePullRequest extends PullRequest with JsProxy {
 
   @reflectable
   bool get canMerge {
-    print('can merge? hasTagged = $hasTagged and hasUsersToReview = $hasUsersToReview');
     return hasTagged && !hasUsersToReview;
   }
 

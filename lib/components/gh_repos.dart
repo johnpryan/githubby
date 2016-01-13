@@ -2,7 +2,6 @@
 library githubby.gh_repos;
 
 import 'dart:async';
-import 'dart:html';
 
 import 'package:polymer/polymer.dart';
 import 'package:web_components/web_components.dart' show HtmlImport;
@@ -28,6 +27,9 @@ class GhRepos extends PolymerElement {
   @Property()
   List<DisplayableRepo> repos;
 
+  @Property()
+  bool isLoading = false;
+
   GhRepos.created() : super.created();
 
   void set context(Context c) {
@@ -42,10 +44,13 @@ class GhRepos extends PolymerElement {
 
   Future _loadRepos() async {
     var storage = _context.storage;
-    if (!storage.hasData) {
-      _displayStorageError();
-      return;
+    if (!storage.hasData || storage.workspace.authToken == '') {
+      set('hasStorage', false);
+    } else {
+      set ('hasStorage', true);
     }
+
+    set('isLoading', true);
 
     var service = _context.service;
     var repos = await service.loadRepos();
@@ -75,10 +80,7 @@ class GhRepos extends PolymerElement {
       displayableRepos.add(displayable);
     }
 
+    set('isLoading', false);
     set('repos', displayableRepos);
-  }
-
-  _displayStorageError() {
-    hasStorage = false;
   }
 }
