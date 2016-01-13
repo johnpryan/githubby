@@ -18,5 +18,8 @@ class DisplayableRepo extends Repository with JsProxy {
   @reflectable
   List<DisplayablePullRequest> pullRequests = [];
 
+  @reflectable
+  bool hide = false;
+
   DisplayableRepo(this._internal);
 }

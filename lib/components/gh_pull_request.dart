@@ -11,5 +11,7 @@ class GhPullRequest extends PolymerElement {
   @Property()
   DisplayablePullRequest pullRequest;
 
+  @property get hide => pullRequest?.hide ?? false;
+
   GhPullRequest.created() : super.created();
 }

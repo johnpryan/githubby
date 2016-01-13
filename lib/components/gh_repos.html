@@ -27,10 +27,14 @@
         <div>loading...</div>
       </div>
     </template>
-    <div hidden="{{!hasStorage}}">
-      <template is="dom-repeat" items="{{repos}}" as="repo">
-        <gh-repo repo="{{repo}}" pull-requests="{{repo.pullRequests}}"></gh-repo>
+    <template is="dom-if" if="{{!isLoading}}">
+      <dl class="form">
+        <dt><label>Filter by Username</label></dt>
+        <dd><input type="text" value="{{filter::input}}" placeholder="user1, user2"></dd>
+      </dl>
+      <template id="repo-repeat" is="dom-repeat" items="{{repos}}" as="repo">
+        <gh-repo repo="{{repo}}" displayable-pull-requests="{{repo.pullRequests}}"></gh-repo>
       </template>
-    </div>
+    </template>
   </template>
 </dom-module>

@@ -18,6 +18,12 @@ class DisplayablePullRequest extends PullRequest with JsProxy {
   String get htmlUrl => _internal.htmlUrl;
 
   @reflectable
+  User get user => _internal.user;
+
+  @reflectable
+  int get number => _internal.number;
+
+  @reflectable
   int unreviewedCommitCount;
 
   @reflectable
@@ -41,6 +47,9 @@ class DisplayablePullRequest extends PullRequest with JsProxy {
 
   @reflectable
   List<DisplayableUser> fyidUsers;
+
+  @reflectable
+  bool hide = false;
 
   DisplayablePullRequest(this._internal);
 }

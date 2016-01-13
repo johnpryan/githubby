@@ -1,4 +1,4 @@
-library githubby.model.displayable_repo;
+library githubby.model.displayable_user;
 
 import 'package:github/common.dart';
 import 'package:polymer/polymer.dart';

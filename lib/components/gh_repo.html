@@ -35,15 +35,17 @@
                 padding: 10px;
             }
         </style>
-        <div class="repo-header">
-            <a href="{{repo.htmlUrl}}">{{repo.fullName}}</a>
-        </div>
-        <ul>
-            <template is="dom-repeat" items="{{pullRequests}}" as="pullRequest">
-                <li class="pull-request-container">
-                    <gh-pull-request pull-request="{{pullRequest}}"></gh-pull-request>
-                </li>
-            </template>
-        </ul>
+        <template is="dom-if" if="{{!hide}}">
+            <div class="repo-header">
+                <a href="{{repo.htmlUrl}}">{{repo.fullName}}</a>
+            </div>
+            <ul>
+                <template is="dom-repeat" items="{{pullRequests}}" as="pullRequest">
+                    <li class="pull-request-container">
+                        <gh-pull-request pull-request="{{pullRequest}}"></gh-pull-request>
+                    </li>
+                </template>
+            </ul>
+        </template>
     </template>
 </dom-module>
