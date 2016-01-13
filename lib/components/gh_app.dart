@@ -26,6 +26,8 @@ class GhApp extends PolymerElement {
   @Property()
   bool displayRepos = true;
 
+  Context _context;
+
   GhApp.created() : super.created();
 
   attached() {
@@ -35,16 +37,16 @@ class GhApp extends PolymerElement {
   }
 
   Future _assignContexts() async {
-    var context = new Context();
-    await context.initialize();
-    _reposElem.context = context;
-    _settingsElem.context = context;
+    _context = new Context();
+    await _context.initialize();
+    _reposElem.context = _context;
+    _settingsElem.context = _context;
   }
 
   @reflectable
   navigateHome([_, __]) {
-    print('navigate Home');
     set('displayRepos', true);
+    set('showBadges', _context.storage.workspace.showBadges);
     _reposElem.reload();
   }
 

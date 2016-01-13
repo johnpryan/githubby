@@ -21,8 +21,8 @@ main() async {
   var auth = new Authentication.withToken(storage.workspace.authToken);
   var github = createGitHubClient(auth: auth);
 
-  var slug = new RepositorySlug('Workiva', 'datatables');
-  var prNumber = 60;
+  var slug = new RepositorySlug('johnpryan', 'githubby');
+  var prNumber = 2;
   var pr = await github.pullRequests.get(slug,prNumber);
 
   // init the services

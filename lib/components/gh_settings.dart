@@ -2,6 +2,7 @@
 library githubby.gh_settings;
 
 import 'dart:async';
+import 'dart:html';
 
 import 'package:githubby/context.dart';
 
@@ -28,6 +29,9 @@ class GhSettings extends PolymerElement {
   @Property()
   String reposInput;
 
+  @Property(observer: 'showBadgesChanged')
+  bool showBadges = true;
+
   GhSettings.created() : super.created();
 
   void set context(Context c) {
@@ -40,6 +44,7 @@ class GhSettings extends PolymerElement {
     var workspace = storage.workspace;
     set('authToken', workspace.authToken);
     set('reposInput', _reposToText(workspace.repos));
+    set('showBadges', workspace.showBadges);
   }
 
   @reflectable
@@ -60,13 +65,23 @@ class GhSettings extends PolymerElement {
 
   Future _saveSettings() async {
     var storage = _context.storage;
-      storage.workspace.authToken = authToken;
-      storage.workspace.repos = _textToRepos(reposInput) ?? [];
+    storage.workspace.authToken = authToken;
+    storage.workspace.repos = _textToRepos(reposInput) ?? [];
+
+    var checkbox = $['show-badges'] as CheckboxInputElement;
+    storage.workspace.showBadges = checkbox.checked;
+
 
     // use the (possibly changed) auth token
     _context.service.loadAuth();
 
     await storage.save();
     fire('gh-complete');
+  }
+
+  @reflectable
+  void showBadgesChanged([_, __]) {
+    var checkbox = $['show-badges'] as CheckboxInputElement;
+    checkbox.checked = showBadges;
   }
 }

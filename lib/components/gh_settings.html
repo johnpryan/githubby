@@ -14,9 +14,14 @@
       <dt><label>Repositories to Track</label></dt>
       <dd><input type="text" value="{{reposInput::input}}" placeholder="dartlang/sdk, flutter/flutter"></dd>
     </dl>
-    <p>clearing local storage removes all settings data</p>
+    <div class="form-checkbox">
+      <label>
+        <input id="show-badges" type="checkbox" checked?="{{showBadges}}">
+        Show badges
+      </label>
+    </div>
     <button type="button" class="btn btn-danger" on-click="clear">Clear Local Storage</button>
-    <div class="section form-actions">
+    <div class="section">
       <button type="button" class="btn btn-primary" on-click="save">Save changes</button>
       <button type="button" class="btn" on-click="cancel">Cancel</button>
     </div>

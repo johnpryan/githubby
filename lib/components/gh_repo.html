@@ -42,7 +42,7 @@
             <ul>
                 <template is="dom-repeat" items="{{pullRequests}}" as="pullRequest">
                     <li class="pull-request-container">
-                        <gh-pull-request pull-request="{{pullRequest}}"></gh-pull-request>
+                        <gh-pull-request show-badges="{{showBadges}}" pull-request="{{pullRequest}}"></gh-pull-request>
                     </li>
                 </template>
             </ul>

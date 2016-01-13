@@ -13,8 +13,9 @@ class Workspace extends Object with _$WorkspaceSerializerMixin {
 
   String authToken;
   List<String> repos;
+  bool showBadges = false;
 
-  Workspace(this.authToken, this.repos);
+  Workspace(this.authToken, this.repos, [this.showBadges]);
 
   factory Workspace.fromJson(json) => _$WorkspaceFromJson(json);
 }

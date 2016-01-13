@@ -2,6 +2,7 @@
     <template>
         <style type="text/css">
             .title {
+                font-size: 15px;
                 font-weight: bold;
                 color: #333;
                 text-decoration: none;
@@ -9,6 +10,15 @@
 
             .title:hover {
                 color: #4078c0;
+            }
+
+            .extra {
+                color: #999;
+                font-size: 11px;
+            }
+
+            .number {
+                font-weight: bold;
             }
 
             .meta {
@@ -24,14 +34,54 @@
                 color: #4078c0;
             }
 
+            .badge {
+                color: white;
+                font-size: 12px;
+                font-weight: bold;
+                padding: 2px 4px;
+                border-radius: 2px;
+            }
+
+            .badge-ready {
+                background-color: rgb(21, 152, 24);
+            }
+
+            .badge-review {
+                background-color: rgb(252, 41, 41);
+            }
+
+            .badge-notready {
+                background-color: rgb(254, 241, 176);
+                color: rgb(38, 38, 38);
+            }
+
+            .badge-unknown {
+                background-color: rgb(224, 224, 224);
+                color: rgb(38, 38, 38);
+            }
+
         </style>
-        <a class="title" href="{{pullRequest.htmlUrl}}">{{pullRequest.title}}</a>
+        <div>
+            <a class="title" href="{{pullRequest.htmlUrl}}">{{pullRequest.title}}</a>
+            <template is="dom-if" if="{{showBadges}}">
+                <span class$="badge {{pullRequest.colorStatus}}">{{pullRequest.status}}</span>
+            </template>
+        </div>
+        <div class = "extra">
+            <span class="number">#{{pullRequest.number}}</span>
+            opened
+            <span><time-ago timestamp="{{pullRequest.howOld}}" /></span>
+        </div>
         <div class="meta">
             <template is="dom-if" if="{{pullRequest.displayReviewers}}">
-                <span>{{pullRequest.unreviewedCommitCount}} commits need review by
-                    <template is="dom-repeat" items="{{pullRequest.usersToReview}}" as="user">
-                        <a href="{{user.htmlUrl}}" class="user-meta">{{user.login}}</a>
-                    </template>
+                <span>
+                    <span>
+                        <a href="{{pullRequest.user.htmlUrl}}" class="user-meta">{{pullRequest.user.login}}</a></span>
+                        would like
+                        {{pullRequest.unreviewedCommitCount}} commits reviewed by
+                        <template is="dom-repeat" items="{{pullRequest.usersToReview}}" as="user">
+                            <a href="{{user.htmlUrl}}" class="user-meta">{{user.login}}</a>
+                        </template>
                 </span>
             </template>
 

@@ -18,7 +18,7 @@ class DisplayablePullRequest extends PullRequest with JsProxy {
   String get htmlUrl => _internal.htmlUrl;
 
   @reflectable
-  User get user => _internal.user;
+  DisplayableUser get user => new DisplayableUser(_internal.user);
 
   @reflectable
   int get number => _internal.number;
@@ -37,6 +37,35 @@ class DisplayablePullRequest extends PullRequest with JsProxy {
 
   @reflectable
   bool get hasTagged => taggedUsers.length > 0;
+
+  @reflectable
+  int get howOld => _internal.createdAt.millisecondsSinceEpoch;
+
+  @reflectable
+  String get status {
+    if (canMerge) {
+      return "Ready to Merge";
+    } else if (hasTagged && hasUsersToReview) {
+      return "Needs Review";
+    } else if (!hasUsersToReview) {
+      return "Not Ready";
+    } else {
+      return "Unkown";
+    }
+  }
+
+  @reflectable
+  String get colorStatus {
+    if (canMerge) {
+      return "badge-ready";
+    } else if (hasTagged && hasUsersToReview) {
+      return "badge-review";
+    } else if (!hasUsersToReview) {
+      return "badge-notready";
+    } else {
+      return "badge-unknown";
+    }
+  }
 
   @reflectable
   bool get canMerge {

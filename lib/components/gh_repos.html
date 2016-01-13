@@ -9,8 +9,9 @@
         align-items: center;
       }
       .loading {
-        width: 80px;
-        height: 80px;
+        margin-top:240px;
+        width: 40px;
+        height: 40px;
       }
     </style>
     <div class="flash" hidden="{{hasStorage}}">
@@ -24,16 +25,15 @@
         <div>
           <img class="loading" src="/packages/githubby/components/third_party/gh_loading.svg" />
         </div>
-        <div>loading...</div>
       </div>
     </template>
     <template is="dom-if" if="{{!isLoading}}">
       <dl class="form">
-        <dt><label>Filter by Username</label></dt>
+        <dt><label>Filter by Reviewer</label></dt>
         <dd><input type="text" value="{{filter::input}}" placeholder="user1, user2"></dd>
       </dl>
       <template id="repo-repeat" is="dom-repeat" items="{{repos}}" as="repo">
-        <gh-repo repo="{{repo}}" displayable-pull-requests="{{repo.pullRequests}}"></gh-repo>
+        <gh-repo show-badges="{{showBadges}}" repo="{{repo}}" displayable-pull-requests="{{repo.pullRequests}}"></gh-repo>
       </template>
     </template>
   </template>

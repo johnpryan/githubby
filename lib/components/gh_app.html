@@ -4,7 +4,7 @@
       <button  on-click="navigateSettings">Settings</button>
     </gh-toolbar>
     <gh-container>
-      <gh-repos id="gh-repos" hidden="{{!displayRepos}}"></gh-repos>
+      <gh-repos id="gh-repos" showBadges="{{showBadges}}" hidden="{{!displayRepos}}"></gh-repos>
       <gh-settings id="gh-settings" hidden="{{displayRepos}}" on-gh-complete="navigateHome"></gh-settings>
     </gh-container>
   </template>

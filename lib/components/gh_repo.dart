@@ -24,6 +24,9 @@ class GhRepo extends PolymerElement {
   List<DisplayablePullRequest> displayablePullRequests;
 
   @Property()
+  bool showBadges;
+
+  @Property()
   List<DisplayablePullRequest> get pullRequestsToDisplay {
     if (displayablePullRequests == null) return [];
     var displayable = displayablePullRequests.where((pr) {

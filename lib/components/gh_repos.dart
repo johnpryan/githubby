@@ -32,6 +32,9 @@ class GhRepos extends PolymerElement {
   @Property()
   bool isLoading = false;
 
+  @Property()
+  bool showBadges;
+
   List<DisplayableRepo> displayableRepos = [];
 
   List<DisplayableRepo> get reposToDisplay {
@@ -81,11 +84,11 @@ class GhRepos extends PolymerElement {
 
   reload() {
     displayableRepos.clear();
+    set('showBadges', _context.storage.workspace.showBadges);
     _loadRepos();
   }
 
   Future _loadRepos() async {
-    print('load repos');
     var storage = _context.storage;
     if (!storage.hasData || storage.workspace.authToken == '') {
       set('hasStorage', false);

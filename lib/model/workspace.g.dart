@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// 2016-01-11T01:07:18.719Z
+// 2016-01-13T07:03:51.181Z
 
 part of githubby.workspace;
 
@@ -8,12 +8,16 @@ part of githubby.workspace;
 // Target: class Workspace
 // **************************************************************************
 
-Workspace _$WorkspaceFromJson(Map json) =>
-    new Workspace(json['authToken'], json['repos']?.map((v0) => v0)?.toList());
+Workspace _$WorkspaceFromJson(Map json) => new Workspace(json['authToken'],
+    json['repos']?.map((v0) => v0)?.toList(), json['showBadges']);
 
 abstract class _$WorkspaceSerializerMixin {
   String get authToken;
   List get repos;
-  Map<String, dynamic> toJson() =>
-      <String, dynamic>{'authToken': authToken, 'repos': repos};
+  bool get showBadges;
+  Map<String, dynamic> toJson() => <String, dynamic>{
+        'authToken': authToken,
+        'repos': repos,
+        'showBadges': showBadges
+      };
 }
