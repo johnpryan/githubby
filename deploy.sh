@@ -3,7 +3,7 @@ CWD=`pwd`
 DATE=`date +'%m/%d/%Y'`
 TIME=`date +'%r'`
 SOURCE_PATH=$CWD/build/web/
-DESTINATION_PATH=$CWD/../blog-src/web/dartbyexample
+DESTINATION_PATH=$CWD/../blog-src/web/githubby
 
 
 pub build
