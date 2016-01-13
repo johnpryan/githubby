@@ -45,7 +45,6 @@ class GhSettings extends PolymerElement {
   @reflectable
   save([_, __]) {
     _saveSettings();
-    fire('gh-complete');
   }
 
   @reflectable

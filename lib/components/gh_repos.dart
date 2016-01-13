@@ -60,9 +60,10 @@ class GhRepos extends PolymerElement {
       }
       repo.hide = allHidden;
     }
-    return displayableRepos.where((repo) {
+    var result = displayableRepos.where((repo) {
       return repo.hide == false;
     }).toList();
+    return result;
   }
 
   GhRepos.created() : super.created();
@@ -75,15 +76,16 @@ class GhRepos extends PolymerElement {
 
   void set context(Context c) {
     _context = c;
-    _loadRepos();
+    reload();
   }
 
   reload() {
-    set('repos', []);
+    displayableRepos.clear();
     _loadRepos();
   }
 
   Future _loadRepos() async {
+    print('load repos');
     var storage = _context.storage;
     if (!storage.hasData || storage.workspace.authToken == '') {
       set('hasStorage', false);
@@ -95,8 +97,6 @@ class GhRepos extends PolymerElement {
 
     var service = _context.service;
     var repos = await service.loadRepos();
-
-    displayableRepos = [];
 
     for (var repo in repos) {
       var displayable = new DisplayableRepo(repo);
@@ -121,7 +121,7 @@ class GhRepos extends PolymerElement {
     }
 
     set('isLoading', false);
-    set('repos', displayableRepos);
+    set('repos', reposToDisplay);
   }
 
   @reflectable
@@ -129,7 +129,5 @@ class GhRepos extends PolymerElement {
     window.location.hash = filter;
     var toDisplay = reposToDisplay;
     set('repos', toDisplay);
-    if (toDisplay.length > 0) {
-    }
   }
 }

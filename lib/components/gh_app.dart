@@ -43,6 +43,7 @@ class GhApp extends PolymerElement {
 
   @reflectable
   navigateHome([_, __]) {
+    print('navigate Home');
     set('displayRepos', true);
     _reposElem.reload();
   }
