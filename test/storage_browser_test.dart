@@ -11,7 +11,7 @@ void main() {
     var storage = new BrowserStorage(uniqueKey: 'test1');
     expect(storage, isNotNull);
     await storage.clear();
-    expect(storage.workspace, isNull);
+    expect(storage.workspace.authToken, '');
     storage.workspace = new Workspace('123', []);
     await storage.save();
     await storage.load();
