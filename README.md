@@ -4,6 +4,8 @@ see all of your code reviews
 
 [![Build Status](https://travis-ci.org/johnpryan/githubby.svg?branch=master)](https://travis-ci.org/johnpryan/githubby)
 
+![](docs/readme-small.png)
+
 ## features
 - add repos to your list
 - for each repo, see who needs to review;
