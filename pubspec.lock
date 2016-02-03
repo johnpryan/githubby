@@ -51,10 +51,9 @@ packages:
     version: "0.2.2"
   github:
     description:
-      ref: fix-pr-base
-      resolved-ref: "27eefb1037b4b868969066a081e84f5f8a8c4c1d"
-      url: "git@github.com:johnpryan/github.dart.git"
-    source: git
+      path: "../../cloned/github.dart"
+      relative: true
+    source: path
     version: "2.3.1"
   glob:
     description: glob
@@ -76,6 +75,10 @@ packages:
     description: initialize
     source: hosted
     version: "0.6.2"
+  intl:
+    description: intl
+    source: hosted
+    version: "0.12.6"
   logging:
     description: logging
     source: hosted
