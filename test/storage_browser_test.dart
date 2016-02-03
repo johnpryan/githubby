@@ -1,4 +1,4 @@
-@TestOn("dartium")
+@TestOn("content-shell")
 library githubby.storage_test;
 
 import 'package:test/test.dart';
