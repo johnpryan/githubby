@@ -51,9 +51,10 @@ packages:
     version: "0.2.2"
   github:
     description:
-      path: "../../cloned/github.dart"
-      relative: true
-    source: path
+      ref: add-pr-list-state
+      resolved-ref: d6a7b51487cd92dc202dcbd01b1ef87b1d94dce2
+      url: "https://github.com/johnpryan/github.dart.git"
+    source: git
     version: "2.3.1"
   glob:
     description: glob

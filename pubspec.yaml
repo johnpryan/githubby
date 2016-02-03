@@ -2,7 +2,7 @@ name: githubby
 dependencies:
   github:
     git:
-      url: git@github.com:johnpryan/github.dart.git
+      url: https://github.com/johnpryan/github.dart.git
       ref: add-pr-list-state
   polymer: ^1.0.0-rc.11
   web_components: ^0.12.0
