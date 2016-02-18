@@ -119,10 +119,12 @@ class PlusOnesRemaining {
     });
 
     for (var username in _taggedUsernames) {
-      taggedUsers.add(await _getUser(github, username));
+      var user = await _getUser(github, username);
+      if (user != null) taggedUsers.add(user);
     }
     for (var username in _fyidUsernames) {
-      fyidUsers.add(await _getUser(github, username));
+      var user = await _getUser(github, username);
+      if (user != null) fyidUsers.add(user);
     }
 
     for (var user in taggedUsers) {
