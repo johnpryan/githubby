@@ -74,12 +74,9 @@ packages:
     source: hosted
     version: "0.2.4"
   github:
-    description:
-      ref: add-pr-list-state
-      resolved-ref: d6a7b51487cd92dc202dcbd01b1ef87b1d94dce2
-      url: "https://github.com/johnpryan/github.dart.git"
-    source: git
-    version: "2.3.1"
+    description: github
+    source: hosted
+    version: "2.3.1+1"
   glob:
     description:
       name: glob
@@ -243,11 +240,9 @@ packages:
     source: hosted
     version: "1.2.1"
   stack_trace:
-    description:
-      name: stack_trace
-      url: "https://pub.dartlang.org"
+    description: stack_trace
     source: hosted
-    version: "1.6.1"
+    version: "1.6.0"
   stream_channel:
     description:
       name: stream_channel
@@ -308,4 +303,3 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.8"
-sdk: ">=1.14.0 <1.16.0"
