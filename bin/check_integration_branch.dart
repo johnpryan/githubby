@@ -19,9 +19,13 @@ main() async {
   var auth = new Authentication.withToken(storage.workspace.authToken);
   var github = createGitHubClient(auth: auth);
 
-  // Change to the PR you want to verify
-  var slug = new RepositorySlug('Workiva', 'datatables');
-  var prNumber = 32;
+  stdout.writeln('Enter the github repository (i.e. dart-lang/sdk');
+  var slugInput = stdin.readLineSync();
+  var slug = new RepositorySlug.full(slugInput);
+
+
+  stdout.writeln('Enter the pull request number');
+  var prNumber = int.parse(stdin.readLineSync());
 
   try {
     PullRequest pr = await github.pullRequests.list(slug).firstWhere((pr) {
@@ -58,9 +62,12 @@ main() async {
   // all commits from all contributing PRs
   List<RepositoryCommit> contributingPrCommits = [];
 
+  print('');
+  print('**pull requests in this branch**');
+
   // populate contributingPrCommits
   for (var id in prIds) {
-    print('checking $slug #$id ...');
+    print('$slug #$id');
     var commits = await github.pullRequests.listCommits(slug, id).toList();
     for (var commit in commits) {
       contributingPrCommits.add(commit);
@@ -79,6 +86,9 @@ main() async {
   var nonContributingCommitShas = nonMergedCommits.map((commit) {
     return commit.sha;
   });
+
+  print('');
+  print('**unreviewed commits**');
 
   for (String sha in nonContributingCommitShas) {
     if (!contributingPrCommitShas.contains(sha)) {
